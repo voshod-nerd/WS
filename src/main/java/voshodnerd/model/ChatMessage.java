@@ -1,4 +1,4 @@
-package voshodnerd.message;
+package voshodnerd.model;
 
 public class ChatMessage {
     private MessageType type;
