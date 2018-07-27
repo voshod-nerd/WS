@@ -6,6 +6,7 @@ var usernameForm = document.querySelector('#usernameForm');
 var messageForm = document.querySelector('#messageForm');
 var messageInput = document.querySelector('#message');
 var messageArea = document.querySelector('#messageArea');
+var sendQuery=document.querySelector('#push');
 var connectingElement = document.querySelector('.connecting');
 
 var stompClient = null;
@@ -37,7 +38,11 @@ function onConnected() {
     stompClient.subscribe('/topic/public', onMessageReceived);
 
     // Subscribe to the users Topic
-    stompClient.subscribe('/topic/users', onListOnlineUsers);
+    //stompClient.subscribe('/users/public', getListOnlineUsers);
+    stompClient.subscribe('/topic/users', function (greeting) {
+                //showGreeting(JSON.parse(greeting.body).content);
+                console.log(JSON.parse(greeting.body).content);
+            });
 
 
     // Tell your username to the server
@@ -73,9 +78,17 @@ function sendMessage(event) {
 }
 
 
-function onListOnlineUsers(payload) {
+function  sendGetListUser() {
+    stompClient.send("/app/chat.getUser", {}, {});
+}
+
+
+function getListOnlineUsers(payload) {
+//console.log(payload);
+console.log("I here");
  var listUser=JSON.parse(payload.body);
-     console.log(listUser);
+    console.log(listUser);
+    console.info(listUser[0].username);
      //var userElement = document.createElement('li');
      //userElement.content=listUser[0].name;
 
@@ -133,3 +146,4 @@ function getAvatarColor(messageSender) {
 
 usernameForm.addEventListener('submit', connect, true)
 messageForm.addEventListener('submit', sendMessage, true)
+sendQuery.addEventListener('click',sendGetListUser,true);
