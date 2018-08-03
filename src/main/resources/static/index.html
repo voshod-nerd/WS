@@ -3,58 +3,87 @@
 <head>
     <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0">
     <title>Spring Boot WebSocket Chat Application</title>
-    <link rel="stylesheet" href="/css/main.css" />
+ <!--   <link rel="stylesheet" href="/css/main.css" /> -->
+  <!--  <link rel="stylesheet" href="/css/mycss.css" /> -->
+
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+
+    <!-- jQuery library -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
+    <!-- Latest compiled JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 </head>
 <body>
 <noscript>
     <h2>Sorry! Your browser doesn't support Javascript</h2>
 </noscript>
 
+
+<div class="container">
+
 <div id="username-page">
-    <div class="username-page-container">
+<div class="row" >
+    <div class="col-md-3"></div>
+    <div class="col-md-6">
         <h1 class="title">Type your username</h1>
-        <form id="usernameForm" name="usernameForm">
+        <form id="usernameForm" name="usernameForm" >
             <div class="form-group">
                 <input type="text" id="name" placeholder="Username" autocomplete="off" class="form-control" />
             </div>
             <div class="form-group">
-                <button type="submit" class="accent username-submit">Start Chatting</button>
+                <button  type="submit" class="btn btn-primary">Start Chatting</button>
             </div>
         </form>
     </div>
+    <div class="col-md-3"></div>
+</div>
 </div>
 
-<div id="chat-page" class="hidden">
-    <div class="chat-container">
-        <div class="chat-header">
-            <h2>Spring WebSocket Chat Demo</h2>
-        </div>
-        <div class="connecting">
-            Connecting...
-        </div>
-        <ul id="messageArea">
 
-        </ul>
-        <form id="messageForm" name="messageForm">
-            <div class="form-group">
-                <div class="input-group clearfix">
-                    <input type="text" id="message" placeholder="Type a message..." autocomplete="off" class="form-control"/>
-                    <button type="submit" class="primary">Send</button>
-                </div>
-            </div>
-        </form>
-        <div>
-            <p>List connected users</p>
-            <button name="push" id="push" ></button>
-            <ul>
-            </ul>
-        </div>
 
-    </div>
+ <div id="chat-page" class="hidden" >
+     <div class="row">
+     <div class="col-md-2"></div>
+         <div class="col-md-4">
+            <div><h3>Spring WebSocket Chat Demo</h3></div>
+             <div class="connecting"  >
+                 Connecting...
+             </div>
+             <ul id="messageArea"  class="well"></ul>
+             <form id="messageForm" name="messageForm">
+                 <div class="form-group">
+                     <input type="text" id="message" placeholder="Type a message..." autocomplete="off" class="form-control"/>
+                     <button type="submit"   class="btn btn-primary">Send</button>
+                 </div>
+             </form>
+         </div>
+         <div class="col-md-2">
+             <div >
+                 <h4 class="title">List of online users</h4>
+             </div>
+             <ul id="list_user" name="list_user">
+                 <li class="list-group-item">Oleg</li>
+                 <li class="list-group-item">Sasha</li>
+             </ul>
+         </div>
+     <div class="col-md-2"></div>
+
+     </div>
+ </div>
+
+
+
+
 </div>
+
+
+
+
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/sockjs-client/1.1.4/sockjs.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/stomp.js/2.3.3/stomp.min.js"></script>
-<script src="/js/main.js"></script>
+ <script src="/js/main.js"></script>
 </body>
 </html>

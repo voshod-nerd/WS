@@ -8,6 +8,8 @@ var messageInput = document.querySelector('#message');
 var messageArea = document.querySelector('#messageArea');
 var sendQuery=document.querySelector('#push');
 var connectingElement = document.querySelector('.connecting');
+var listUsers = document.querySelector('#list_user');
+
 
 var stompClient = null;
 var username = null;
@@ -19,13 +21,14 @@ var colors = [
 
 function connect(event) {
     username = document.querySelector('#name').value.trim();
-
+    console.log(username);
     if(username) {
+
         usernamePage.classList.add('hidden');
         chatPage.classList.remove('hidden');
 
         var socket = new SockJS('/ws');
-        stompClient = Stomp.over(socket);
+       stompClient = Stomp.over(socket);
 
         stompClient.connect({}, onConnected, onError);
     }
@@ -38,10 +41,25 @@ function onConnected() {
     stompClient.subscribe('/topic/public', onMessageReceived);
 
     // Subscribe to the users Topic
-    //stompClient.subscribe('/users/public', getListOnlineUsers);
+   // stompClient.subscribe('/topic/public', getListOnlineUsers);
+
     stompClient.subscribe('/topic/users', function (greeting) {
                 //showGreeting(JSON.parse(greeting.body).content);
+                console.log("1");
                 console.log(JSON.parse(greeting.body).content);
+                console.log("1");
+                var lsUser=JSON.parse(greeting.body).content
+                listUsers.innerHTML='';
+               /* for (int i=0;lsUser.length;i++){
+                var avatarElement = document.createElement('i');
+                var avatarText = document.createTextNode(lsUser[i].username);
+                avatarElement.appendChild(avatarText);
+                listUser.appendChild(avatarElement);
+
+
+                }
+               */
+
             });
 
 
@@ -84,11 +102,9 @@ function  sendGetListUser() {
 
 
 function getListOnlineUsers(payload) {
-//console.log(payload);
-console.log("I here");
  var listUser=JSON.parse(payload.body);
-    console.log(listUser);
-    console.info(listUser[0].username);
+   // console.log(listUser);
+   // console.info(listUser[0].username);
      //var userElement = document.createElement('li');
      //userElement.content=listUser[0].name;
 
@@ -146,4 +162,4 @@ function getAvatarColor(messageSender) {
 
 usernameForm.addEventListener('submit', connect, true)
 messageForm.addEventListener('submit', sendMessage, true)
-sendQuery.addEventListener('click',sendGetListUser,true);
+//sendQuery.addEventListener('click',sendGetListUser,true);
